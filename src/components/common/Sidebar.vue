@@ -33,17 +33,20 @@
           </li>
 
           <li>
-            <router-link to="/acknowledgement">Acknowledgement</router-link>
+            <router-link to="/acknowledgement"><i class="mdi mdi-record sidebar-icon"></i>Acknowledgement</router-link>
           </li>
 
           <li>
-            <router-link to="/issue">Issue</router-link>
+            <router-link to="/issue"><i class="mdi mdi-record sidebar-icon"></i>Issue</router-link>
           </li>
           <li>
-            <router-link to="/request">Request</router-link>
+            <router-link to="/request"><i class="mdi mdi-record sidebar-icon"></i>Request</router-link>
           </li>
           <li>
-            <router-link to="/vendor">Stock_req</router-link>
+            <router-link to="/vendor"><i class="mdi mdi-record sidebar-icon"></i>Stock_req</router-link>
+          </li>
+          <li>
+            <router-link to="/update"><i class="mdi mdi-record sidebar-icon"></i>Update</router-link>
           </li>
         </ul>
       </div>     

@@ -25,7 +25,6 @@ input:hover,input:focus,select:hover,select:focus{
 .main{
     background-color: #f8f8f8;
     border-radius: 8px;
-    margin-top: 2rem;
 }
 .ack{
     float: right;

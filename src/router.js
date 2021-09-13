@@ -37,5 +37,11 @@ export default new Router({
       component: loadView('Stock_req'),
       meta: { title: 'Stock_req', icon : 'mdi mdi-home-outline' }
     },
+    {
+      path: '/update',
+      name: 'update',
+      component: loadView('Update'),
+      meta: { title: 'Update', icon : 'mdi mdi-home-outline' }
+    },
   ]
 })

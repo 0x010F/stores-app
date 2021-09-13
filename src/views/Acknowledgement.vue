@@ -4,7 +4,7 @@ h1{
     font-weight: 900;
     color: blue;
 }
-h3{
+h4{
     padding: 0 24px;
 }
 .row,.col{
@@ -25,7 +25,6 @@ input:hover,input:focus,select:hover,select:focus{
 .main{
     background-color: #f8f8f8;
     border-radius: 8px;
-    margin-top: 2rem;
 }
 .ack{
     float: right;
@@ -40,23 +39,7 @@ button{
     <div class="p-2">
         <h1 class="m-2">Store <span style="font-weight:100;color:black">Management</span></h1>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Employee Name:</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Employee ID:</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>
-        </div>
-    </div>
-    <h3>Acknowledgment</h3>
+    <h4>Acknowledgment</h4>
     <div class="container p-4">
         <table class="table text-center">
             <thead class="table-dark">

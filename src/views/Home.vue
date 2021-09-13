@@ -19,10 +19,9 @@ input:hover,input:focus,select:hover,select:focus{
     -webkit-appearance:none;
     box-shadow: none !important;
 }
-.container{
+.main{
     background-color: #f8f8f8;
     border-radius: 8px;
-    margin-top: 2rem;
 }
 .ack{
     float: right;
@@ -31,10 +30,10 @@ input:hover,input:focus,select:hover,select:focus{
 </style>
 
 <template>
-<div class="container">
+<div class="main container">
     <div class="p-2">
         <h1 class="m-2">Store <span style="font-weight:100;color:black">Management</span></h1>
-        <button class="ack btn btn-dark m-3 ">Acknowledgement</button>
+        <router-link to="/acknowledgment"><button class="ack btn btn-dark m-3 ">Acknowledgement</button></router-link>
     </div>
     <div class="container">
         <div class="row">
