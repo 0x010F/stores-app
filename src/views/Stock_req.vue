@@ -51,36 +51,27 @@ td{
         <div class="row">
             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Employee Name:</label>
+                    <label for="exampleInputEmail1" class="form-label mb-0">Vendor Name:</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Employee ID:</label>
+                    <label for="exampleInputEmail1" class="form-label mb-0">Replishment Date:</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Issue Date:</label>
-                    <input type="Date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
             </div>
         </div>
     </div>
     <div class="container p-4">
-    <h3 class="p-0">Issue Items</h3>
+    <h3 class="p-0">Acknowledgment</h3>
         <table class="table text-center">
             <thead>
                 <tr class="table-dark">
-                    <th scope="col">Material Description</th>
-                    <th scope="col">Request ID</th>
-                    <th scope="col">Issue Qty.</th>
+                    <th scope="col">Item Description</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Specification, if any</th>
                 </tr>
             </thead>
             <tbody class="table-secondary">
@@ -88,13 +79,16 @@ td{
                     <td><input type="text" class="form-control table-inp"/></td>
                     <td><input type="text" class="form-control table-inp"/></td>
                     <td><input type="text" class="form-control table-inp"/></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
                     <td><input type="text" class="form-control table-inp"/></td>
                 </tr>
                 <tr>
+                    <td><input type="text" class="form-control table-inp"/></td>
+                    <td><input type="text" class="form-control table-inp"/></td>
+                    <td><input type="text" class="form-control table-inp"/></td>
+                    <td><input type="text" class="form-control table-inp"/></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control table-inp"/></td>
                     <td><input type="text" class="form-control table-inp"/></td>
                     <td><input type="text" class="form-control table-inp"/></td>
                     <td><input type="text" class="form-control table-inp"/></td>
@@ -110,12 +104,12 @@ td{
                 </div>
         </div>
     </div>
-    <div class="text-center"><button class="btn btn-primary btn-lg  m-4">Submit</button></div>
+    <div class="text-center"><button class="btn btn-danger btn-lg  m-4">Request</button></div>
 </div>
 </template>
 
 <script>
 export default ({
-   name:'Issue'
+   name:'Stock_req'
 })
 </script>
