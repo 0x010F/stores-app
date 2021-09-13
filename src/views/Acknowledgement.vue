@@ -59,8 +59,8 @@ button{
     <h3>Acknowledgment</h3>
     <div class="container p-4">
         <table class="table text-center">
-            <thead>
-                <tr class="table-dark">
+            <thead class="table-dark">
+                <tr >
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Date</th>

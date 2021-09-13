@@ -39,6 +39,12 @@
           <li>
             <router-link to="/issue">Issue</router-link>
           </li>
+          <li>
+            <router-link to="/request">Request</router-link>
+          </li>
+          <li>
+            <router-link to="/vendor">Stock_req</router-link>
+          </li>
         </ul>
       </div>     
     </div>

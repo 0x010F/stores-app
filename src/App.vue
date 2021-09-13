@@ -45,6 +45,9 @@ export default {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("../src/assets/b.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 #app-loader {
   position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: rgba(255,255,255,0.8); z-index: 2000; display: flex; align-items: center; justify-content: center;

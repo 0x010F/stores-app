@@ -76,8 +76,8 @@ td{
     <div class="container p-4">
     <h3 class="p-0">Issue Items</h3>
         <table class="table text-center">
-            <thead>
-                <tr class="table-dark">
+            <thead  class="table-dark">
+                <tr>
                     <th scope="col">Material Description</th>
                     <th scope="col">Request ID</th>
                     <th scope="col">Issue Qty.</th>

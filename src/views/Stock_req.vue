@@ -66,8 +66,8 @@ td{
     <div class="container p-4">
     <h3 class="p-0">Acknowledgment</h3>
         <table class="table text-center">
-            <thead>
-                <tr class="table-dark">
+            <thead class="table-dark">
+                <tr>
                     <th scope="col">Item Description</th>
                     <th scope="col">Qty</th>
                     <th scope="col">Unit</th>
