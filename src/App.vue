@@ -11,12 +11,11 @@
     </div>
 
     <div class="wrapper">
-        <sidebar></sidebar>
-      <div class='column column2'>
+      <sidebar />
+      <div class="column column2">
         <router-view :key="$route.fullPath" />
       </div>
     </div>
-   
   </div>
 </template>
 

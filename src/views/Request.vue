@@ -35,81 +35,127 @@ button{
 </style>
 
 <template>
-<div class="main container">
+  <div class="main container">
     <div class="p-2">
-        <h1 class="m-2">Store <span style="font-weight:100;color:black">Management</span></h1>
+      <h1 class="m-2">
+        Store <span style="font-weight:100;color:black">Management</span>
+      </h1>
     </div>
     <div class="container p-3">
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Select Material:</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected></option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+          <label
+            for="exampleInputEmail1"
+            class="form-label mb-0"
+          >Select Material:</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+          >
+            <option selected />
+            <option value="1">
+              One
+            </option>
+            <option value="2">
+              Two
+            </option>
+            <option value="3">
+              Three
+            </option>
+          </select>
+        </div>
+      </div>
     </div>
     <div class="container p-3">
-    <h4>Pending Request</h4>
-        <table class="table text-center">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Requested item</th>
-                    <th scope="col">Unit</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody class="table-secondary">
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>12/02/2021</td>
-                    <td>Pen</td>
-                    <td>5</td>
-                    <td>
-                        <button class="btn btn-success">Approve</button>
-                        <button class="btn btn-danger ">Danger</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+      <h4>Pending Request</h4>
+      <table class="table text-center">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">
+              ID
+            </th>
+            <th scope="col">
+              Name
+            </th>
+            <th scope="col">
+              Date
+            </th>
+            <th scope="col">
+              Requested item
+            </th>
+            <th scope="col">
+              Unit
+            </th>
+            <th scope="col">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody class="table-secondary">
+          <tr>
+            <th scope="row">
+              1
+            </th>
+            <td>Mark</td>
+            <td>12/02/2021</td>
+            <td>Pen</td>
+            <td>5</td>
+            <td>
+              <button class="btn btn-success">
+                Approve
+              </button>
+              <button class="btn btn-danger ">
+                Danger
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="container p-3">
-    <h4>Approved Request</h4>
-        <table class="table text-center">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Requested item</th>
-                    <th scope="col">Unit</th>
-                    <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <tbody class="table-secondary">
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Jack</td>
-                    <td>2/09/2021</td>
-                    <td>Books</td>
-                    <td>10</td>
-                    <td>Received</td>
-                </tr>
-            </tbody>
-        </table>
+      <h4>Approved Request</h4>
+      <table class="table text-center">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">
+              ID
+            </th>
+            <th scope="col">
+              Name
+            </th>
+            <th scope="col">
+              Date
+            </th>
+            <th scope="col">
+              Requested item
+            </th>
+            <th scope="col">
+              Unit
+            </th>
+            <th scope="col">
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody class="table-secondary">
+          <tr>
+            <th scope="row">
+              1
+            </th>
+            <td>Jack</td>
+            <td>2/09/2021</td>
+            <td>Books</td>
+            <td>10</td>
+            <td>Received</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 export default ({
-   name:'Request'
+  name: 'Request'
 })
 </script>

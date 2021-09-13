@@ -41,74 +41,174 @@ td{
 </style>
 
 <template>
-<div class="main container">
+  <div class="main container">
     <div class="p-2">
-        <h1 class="m-2">Store <span style="font-weight:100;color:black">Management</span></h1>
-        <h5 class="m-2">Stock Replenishment</h5>
+      <h1 class="m-2">
+        Store <span style="font-weight:100;color:black">Management</span>
+      </h1>
+      <h5 class="m-2">
+        Stock Replenishment
+      </h5>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Vendor Name:</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Replishment Date:</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="mb-2">
+            <label
+              for="exampleInputEmail1"
+              class="form-label mb-0"
+            >Vendor Name:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            >
+          </div>
         </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="mb-2">
+            <label
+              for="exampleInputEmail1"
+              class="form-label mb-0"
+            >Replishment Date:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            >
+          </div>
+        </div>
+      </div>
     </div>
     <div class="container p-4">
-    <h3 class="p-0">Acknowledgment</h3>
-        <table class="table text-center">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">Item Description</th>
-                    <th scope="col">Qty</th>
-                    <th scope="col">Unit</th>
-                    <th scope="col">Specification, if any</th>
-                </tr>
-            </thead>
-            <tbody class="table-secondary">
-                <tr>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                    <td><input type="text" class="form-control table-inp"/></td>
-                </tr>
-            </tbody>
-        </table>
+      <h3 class="p-0">
+        Acknowledgment
+      </h3>
+      <table class="table text-center">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">
+              Item Description
+            </th>
+            <th scope="col">
+              Qty
+            </th>
+            <th scope="col">
+              Unit
+            </th>
+            <th scope="col">
+              Specification, if any
+            </th>
+          </tr>
+        </thead>
+        <tbody class="table-secondary">
+          <tr>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control table-inp"
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="container">
-        <div class="row">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Remark:</label>
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
+      <div class="row">
+        <div class="mb-2">
+          <label
+            for="exampleInputEmail1"
+            class="form-label"
+          >Remark:</label>
+          <textarea
+            class="form-control"
+            rows="3"
+          />
         </div>
+      </div>
     </div>
-    <div class="text-center"><button class="btn btn-danger btn-lg  m-4">Request</button></div>
-</div>
+    <div class="text-center">
+      <button class="btn btn-danger btn-lg  m-4">
+        Request
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
 export default ({
-   name:'Stock_req'
+  name: 'StockReq'
 })
 </script>

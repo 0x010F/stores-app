@@ -35,57 +35,136 @@ button{
 </style>
 
 <template>
-<div class="main container">
+  <div class="main container">
     <div class="p-2">
-        <h1 class="m-2">Store <span style="font-weight:100;color:black">Management</span></h1>
+      <h1 class="m-2">
+        Store <span style="font-weight:100;color:black">Management</span>
+      </h1>
     </div>
     <div class="row container">
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Select Department:</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected></option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Select item:</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected></option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+          <label
+            for="exampleInputEmail1"
+            class="form-label mb-0"
+          >Select Type:</label>
+          <select
+            class="form-select"
+            id="itemType"
+            aria-label="Default select example"
+            @change="handleTypeChange"
+          >
+            <option
+              v-for="type in itemTypes"
+              :key="type"
+              :value="type"
+            >
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+          <label
+            for="exampleInputEmail1"
+            class="form-label mb-0"
+          >Select item:</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+          >
+            <template v-for="item in items">
+              <option
+                v-if="item.type === currentType"
+                :value="item.itemName"
+                :key="item._id"
+              >
+                {{ item.itemName }}
+              </option>
+            </template>
+          </select>
+        </div>
+      </div>
     </div>
     <div class="row container">
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Quantity:</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label mb-0">Unit:</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+          <label
+            for="requestedQty"
+            class="form-label mb-0"
+          >Quantity:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="requestedQty"
+            aria-describedby="emailHelp"
+          >
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+          <label
+            for="units"
+            class="form-label mb-0"
+          >Units:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="units"
+            aria-describedby="emailHelp"
+          >
+        </div>
+      </div>
     </div>
     <div class="text-center p-4">
-        <h4>Add __ items into Store.</h4>
-        <button class="btn btn-danger">Add</button>
+      <h4>Add __ items into Store.</h4>
+      <button class="btn btn-danger">
+        Add
+      </button>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
+import { callMQLOpen } from '@/utils/mqlCalls.js'
 export default ({
-   name:'Request'
-})
+  name: 'Request',
+  data () {
+    return {
+      items: [],
+      currentType: 'Stationary'
+    }
+  },
+  mounted () {
+    this.GetAllItems()
+  },
+  methods: {
+    handleTypeChange (e) {
+      this.currentType = e.target.value
+    },
+
+    async GetAllItems () {
+      let res = await callMQLOpen('ReadStoresInventory', {})
+      this.items = res
+    },
+    async UpdateStores (item) {
+      await callMQLOpen('UpdateStoresInventory', {
+        id: item.ID,
+        'avaliableUnits': 30,
+        'itemName': 'tea powder',
+        'price': 50,
+        'type': item.type
+
+      })
+    }
+  },
+  computed: {
+    itemTypes: function () {
+      const set = new Set(this.items.map((i) => i.type))
+      return [...set]
+    }
+  }
+}
+)
 </script>
