@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div>
-      <h1><u>{{ msg }}</u></h1>
-    </div>
     <b-table
       :striped="striped"
       :bordered="bordered"
@@ -19,12 +16,6 @@
       :items="itemList"
       :fields="fields"
     />
-    <div>
-      <p>
-        <u>This is a table component example</u>
-      </p>
-      <hr>
-    </div>
   </div>
 </template>
 
