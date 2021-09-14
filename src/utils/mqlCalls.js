@@ -7,7 +7,7 @@ export async function callMQLOpen (activityName, data) {
     .fetch()
   // return mql
     .then((rs) => {
-      let res = rs.getActivity('ReadStoresInventory', true)
+      let res = rs.getActivity(activityName, true)
       return res.result
     })
   return mql

@@ -1,36 +1,41 @@
 <style scoped>
-h1{
-    display: inline-block !important;
-    font-weight: 900;
-    color: blue;
+h1 {
+  display: inline-block !important;
+  font-weight: 900;
+  color: blue;
 }
-h3{
-    padding: 0 24px;
+h3 {
+  padding: 0 24px;
 }
-.row,.col{
-    padding: 0;
-    margin: 0;
+.row,
+.col {
+  padding: 0;
+  margin: 0;
 }
-label{
-    font-weight: 500;
+label {
+  font-weight: 500;
 }
-select,input{
-    background-color: #e7e7e7;
-    margin-bottom: 1rem;
+select,
+input {
+  background-color: #e7e7e7;
+  margin-bottom: 1rem;
 }
-input:hover,input:focus,select:hover,select:focus{
-    -webkit-appearance:none;
-    box-shadow: none !important;
+input:hover,
+input:focus,
+select:hover,
+select:focus {
+  -webkit-appearance: none;
+  box-shadow: none !important;
 }
-.main{
-    background-color: #f8f8f8;
-    border-radius: 8px;
+.main {
+  background-color: #f8f8f8;
+  border-radius: 8px;
 }
-.ack{
-    float: right;
+.ack {
+  float: right;
 }
-button{
-    margin: 0 0.3rem;
+button {
+  margin: 0 0.3rem;
 }
 </style>
 
@@ -38,27 +43,22 @@ button{
   <div class="main container">
     <div class="p-2">
       <h1 class="m-2">
-        Store <span style="font-weight:100;color:black">Management</span>
+        Store <span style="font-weight: 100; color: black">Management</span>
       </h1>
     </div>
     <div class="row container">
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
-          <label
-            for="exampleInputEmail1"
-            class="form-label mb-0"
-          >Select Type:</label>
+          <label for="exampleInputEmail1" class="form-label mb-0"
+            >Select Type:</label
+          >
           <select
             class="form-select"
             id="itemType"
             aria-label="Default select example"
-            @change="handleTypeChange"
+            v-model="currentType"
           >
-            <option
-              v-for="type in itemTypes"
-              :key="type"
-              :value="type"
-            >
+            <option v-for="type in itemTypes" :key="type" :value="type">
               {{ type }}
             </option>
           </select>
@@ -66,13 +66,13 @@ button{
       </div>
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
-          <label
-            for="exampleInputEmail1"
-            class="form-label mb-0"
-          >Select item:</label>
+          <label for="exampleInputEmail1" class="form-label mb-0"
+            >Select item:</label
+          >
           <select
             class="form-select"
             aria-label="Default select example"
+            v-model="selectedItem"
           >
             <template v-for="item in items">
               <option
@@ -90,81 +90,134 @@ button{
     <div class="row container">
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
-          <label
-            for="requestedQty"
-            class="form-label mb-0"
-          >Quantity:</label>
+          <label for="requestedQty" class="form-label mb-0">Price:</label>
           <input
             type="text"
             class="form-control"
             id="requestedQty"
             aria-describedby="emailHelp"
-          >
+            v-model="selectedPrice"
+          />
         </div>
       </div>
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
-          <label
-            for="units"
-            class="form-label mb-0"
-          >Units:</label>
+          <label for="units" class="form-label mb-0">Available units:</label>
           <input
             type="text"
             class="form-control"
             id="units"
             aria-describedby="emailHelp"
-          >
+            disabled
+            v-model="selectedUnits"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+          <label for="units-add" class="form-label mb-0">Units to add:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="units-add"
+            v-model="addUnits"
+          />
         </div>
       </div>
     </div>
     <div class="text-center p-4">
       <h4>Add __ items into Store.</h4>
-      <button class="btn btn-danger">
-        Add
-      </button>
+      <button class="btn btn-danger" @click="UpdateStores">Update</button>
     </div>
   </div>
 </template>
 
 <script>
-import { callMQLOpen } from '@/utils/mqlCalls.js'
-export default ({
-  name: 'Request',
-  data () {
+import { callMQLOpen } from "@/utils/mqlCalls.js";
+import MQL from "@/plugins/mql.js";
+export default {
+  name: "Request",
+  data() {
     return {
       items: [],
-      currentType: 'Stationary'
-    }
+      currentType: null,
+      selectedItem: null,
+      selectedPrice: 0,
+      selectedUnits: 0,
+      addUnits: 0
+    };
   },
-  mounted () {
-    this.GetAllItems()
+  mounted() {
+    this.GetAllItems();
   },
   methods: {
-    handleTypeChange (e) {
-      this.currentType = e.target.value
+    handleTypeChange(e) {
+      this.currentType = e.target.value;
     },
 
-    async GetAllItems () {
-      let res = await callMQLOpen('ReadStoresInventory', {})
-      this.items = res
+    handleItemChange(e) {
+      console.log(e.target.value);
+      this.selectedItem = e.target.value;
     },
-    async UpdateStores (item) {
-      await callMQLOpen('UpdateStoresInventory', {
-        id: item.ID,
-        'avaliableUnits': 30,
-        'itemName': 'tea powder',
-        'price': 50,
-        'type': item.type
 
-      })
-    }
+    async GetAllItems() {
+      let res = await callMQLOpen("ReadStoresInventory", {});
+      this.items = res;
+      console.log(this.items);
+    },
+    async UpdateStores() {
+      const item = this.items.find(
+        (i) => i.type === this.currentType && i.itemName === this.selectedItem
+      );
+      // const response = await callMQLOpen("UpdateStoresInventory", {
+      //   id: item._id,
+      //   avaliableUnits: this.selectedUnits,
+      //   itemName: this.selectedItem,
+      //   price: this.selectedPrice,
+      //   type: this.currentType,
+      // });
+      // console.log(response)
+      console.log(this.selectedUnits, this.selectedItem, this.selectedPrice, this.currentType)
+      new MQL()
+        .setActivity("o.[UpdateStoresInventory]")
+        .setData({
+          "id": item._id,
+          "avaliableUnits": parseInt(this.selectedUnits, 10) + parseInt(this.addUnits, 10),
+          "itemName": this.selectedItem,
+          "price": parseInt(this.selectedPrice, 10),
+          "type": this.currentType,
+        })
+        .enablePageLoader(true)
+        .showConfirmDialog(true)
+        .fetch("a11")
+        .then((res) => {
+          console.log(res);
+          // let r = res.getRaw(true)
+          console.log(res.isValid());
+        });
+    },
   },
   computed: {
     itemTypes: function () {
-      const set = new Set(this.items.map((i) => i.type))
-      return [...set]
-    }
-  }
-}
-)
+      const set = new Set(this.items.map((i) => i.type));
+      return [...set];
+    },
+  },
+  watch: {
+    currentType: function () {
+      const item = this.items.find(
+        (i) => i.type === this.currentType && i.itemName === this.selectedItem
+      );
+      this.selectedPrice = item ? item.price : 0;
+      this.selectedUnits = item ? item.avaliableUnits : 0;
+    },
+    selectedItem: function () {
+      const item = this.items.find(
+        (i) => i.type === this.currentType && i.itemName === this.selectedItem
+      );
+      this.selectedPrice = item ? item.price : 0;
+      this.selectedUnits = item ? item.avaliableUnits : 0;
+    },
+  },
+};
 </script>

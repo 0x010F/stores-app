@@ -40,74 +40,38 @@ select:focus {
       <h1 class="m-2">
         Store <span style="font-weight: 100; color: black">Management</span>
       </h1>
-      <button class="ack btn btn-dark m-3">
-        Acknowledgement
-      </button>
+      <button class="ack btn btn-dark m-3">Acknowledgement</button>
     </div>
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
           <div class="mb-2">
-            <label
-              for="empName"
-              class="form-label mb-0"
-            >Employee Name:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="empName"
-            >
+            <label for="empName" class="form-label mb-0">Employee Name:</label>
+            <input type="text" class="form-control" id="empName" />
           </div>
         </div>
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
           <div class="mb-2">
-            <label
-              for="empID"
-              class="form-label mb-0"
-            >Employee ID:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="empID"
-            >
+            <label for="empID" class="form-label mb-0">Employee ID:</label>
+            <input type="text" class="form-control" id="empID" />
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
           <div class="mb-2">
-            <label
-              for="officeName"
-              class="form-label mb-0"
-            >Office Name:</label>
-            <select
-              class="form-select"
-              aria-label="Default select example"
-            >
+            <label for="officeName" class="form-label mb-0">Office Name:</label>
+            <select class="form-select" aria-label="Default select example">
               <option selected />
-              <option value="1">
-                One
-              </option>
-              <option value="2">
-                Two
-              </option>
-              <option value="3">
-                Three
-              </option>
+              <option value="Pune A">Pune A</option>
+              <option value="Pune B">Pune B</option>
             </select>
           </div>
         </div>
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
           <div class="mb-2">
-            <label
-              for="reqDate"
-              class="form-label mb-0"
-            >Request Date:</label>
-            <input
-              type="date"
-              class="form-control"
-              id="reqDate"
-            >
+            <label for="reqDate" class="form-label mb-0">Request Date:</label>
+            <input type="date" class="form-control" id="reqDate" />
           </div>
         </div>
       </div>
@@ -115,33 +79,27 @@ select:focus {
         <table class="table table-secondary text-center mt-3">
           <thead class="table-dark">
             <tr>
-              <th scope="col">
-                Type of Item
-              </th>
-              <th scope="col">
-                Item
-              </th>
-              <th scope="col">
-                Qty
-              </th>
-              <th scope="col">
-                Units
-              </th>
+              <th scope="col">Type of Item</th>
+              <th scope="col">Item</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Units</th>
             </tr>
           </thead>
           <tbody>
+            <tr v-for="(item, idx) in pickedItems" :key="idx">
+              <td>{{ item.type }}</td>
+              <td>{{ item.item }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.unit }}</td>
+            </tr>
             <tr>
               <td>
                 <select
                   class="form-select"
                   aria-label="Default select example"
-                  @change="handleTypeChange"
+                  v-model="currentType"
                 >
-                  <option
-                    v-for="type in itemTypes"
-                    :key="type"
-                    :value="type"
-                  >
+                  <option v-for="type in itemTypes" :key="type" :value="type">
                     {{ type }}
                   </option>
                 </select>
@@ -150,12 +108,13 @@ select:focus {
                 <select
                   class="form-select"
                   aria-label="Default select example"
+                  v-model="currentItem"
                 >
-                  <template v-for="item in items">
+                  <template v-for="(item, idx) in items">
                     <option
                       v-if="item.type === currentType"
                       :value="item.itemName"
-                      :key="item._id"
+                      :key="idx"
                     >
                       {{ item.itemName }}
                     </option>
@@ -167,18 +126,20 @@ select:focus {
                   type="text"
                   class="form-control"
                   id="requestedQty"
-                >
+                  v-model="itemQuantity"
+                />
               </td>
               <td>
                 <input
                   type="text"
                   class="form-control"
                   id="units"
-                >
+                  v-model="itemUnit"
+                />
               </td>
             </tr>
             <tr>
-              <button>Add more item</button>
+              <button @click="addItem">Add item</button>
             </tr>
           </tbody>
         </table>
@@ -186,91 +147,87 @@ select:focus {
       <div class="row">
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
           <div class="mb-2">
-            <label
-              for="specifications"
-              class="form-label mb-0"
-            >Material specification if any:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="specifications"
+            <label for="specifications" class="form-label mb-0"
+              >Material specification if any:</label
             >
+            <input type="text" class="form-control" id="specifications" />
           </div>
         </div>
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
           <div class="mb-2">
-            <label
-              for="remarks"
-              class="form-label mb-0"
-            >Remark if any:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="remarks"
-            >
+            <label for="remarks" class="form-label mb-0">Remark if any:</label>
+            <input type="text" class="form-control" id="remarks" />
           </div>
         </div>
       </div>
     </div>
     <div class="text-center">
-      <button class="btn btn-primary btn-lg mb-5 m-4">
-        Submit
-      </button>
+      <button class="btn btn-primary btn-lg mb-5 m-4">Submit</button>
     </div>
   </div>
 </template>
 
 <script>
 // import MQL from '@/plugins/mql.js'
-import { callMQLOpen } from '@/utils/mqlCalls.js'
-import { v4 as uuidv4 } from 'uuid'
+import { callMQLOpen } from "@/utils/mqlCalls.js";
+import ObjectID from "bson-objectid";
+
 export default {
-  name: 'Home',
-  data () {
+  name: "Home",
+  data() {
     return {
       items: [],
-      types: ['Stationary', 'Pantry'],
-      currentType: 'Stationary',
-      id: ''
-    }
+      pickedItems: [],
+      types: [],
+      currentType: null,
+      currentItem: null,
+      itemQuantity: 0,
+      itemUnit: "",
+      id: "",
+      empName: "",
+      empId: "",
+      officeName: "",
+      requestDate: "",
+      specs: "",
+      remark: "",
+    };
   },
-  mounted () {
-    this.GetAllItems()
-    this.CreateID()
+  mounted() {
+    this.GetAllItems();
   },
   methods: {
-    handleTypeChange (e) {
-      this.currentType = e.target.value
+    async GetAllItems() {
+      let res = await callMQLOpen("ReadStoresInventory", {});
+      this.items = res;
     },
-    async CreateID () {
-      this.id = require('bson-objectid')
-      var ObjectID = uuidv4()
-      console.log(ObjectID)
+    SubmitRequest() {
+      callMQLOpen("CreateStoresRequests", {
+        _id: ObjectID().toHexString(),
+        empName: this.empName,
+        officeName: this.officeName,
+        remarks: this.remark,
+        requestDate: this.requestDate,
+        specifications: this.specs,
+        status: "pending",
+        items: this.items,
+        acknowledged: false,
+      });
     },
-    async GetAllItems () {
-      let res = await callMQLOpen('ReadStoresInventory', {})
-      this.items = res
-      //   new MQL()
-      //     .setActivity('o.[ReadStoresInventory]')
-      //     .enablePageLoader(false)
-      //     .fetch()
-      //     .then((rs) => {
-      //       let res = rs.getActivity('ReadStoresInventory', true)
-      //       this.items = res.result
-      //     })
+    addItem() {
+      console.log(this.currentItem)
+      this.pickedItems.push({
+        type: this.currentType,
+        item: this.currentItem,
+        quantity: this.itemQuantity,
+        unit: this.itemUnit,
+      });
     },
-    SubmitRequest () {
-      callMQLOpen('CreateStoresRequests', {
-        _id: require('bson-objectid')
-
-      })
-    }
   },
   computed: {
     itemTypes: function () {
-      const set = new Set(this.items.map((i) => i.type))
-      return [...set]
-    }
-  }
-}
+      const set = new Set(this.items.map((i) => i.type));
+      return [...set];
+    },
+  },
+};
 </script>
