@@ -230,7 +230,7 @@ export default {
     return {
       items: [],
       types: ['Stationary', 'Pantry'],
-      currentType: 'Stationary',
+      currentType: 'Pantry',
       id: ''
     }
   },
