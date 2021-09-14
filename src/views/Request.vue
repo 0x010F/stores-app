@@ -41,121 +41,175 @@ button{
         Store <span style="font-weight:100;color:black">Management</span>
       </h1>
     </div>
-    <div class="container p-3">
+    <div class="row container">
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
           <label
             for="exampleInputEmail1"
             class="form-label mb-0"
-          >Select Material:</label>
+          >Select Type:</label>
+          <select
+            class="form-select"
+            id="itemType"
+            aria-label="Default select example"
+            v-model="currentType"
+          >
+            <option
+              v-for="type in itemTypes"
+              :key="type"
+              :value="type"
+            >
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+          <label
+            for="exampleInputEmail1"
+            class="form-label mb-0"
+          >Select item:</label>
           <select
             class="form-select"
             aria-label="Default select example"
+            v-model="selectedItem"
           >
-            <option selected />
-            <option value="1">
-              One
-            </option>
-            <option value="2">
-              Two
-            </option>
-            <option value="3">
-              Three
-            </option>
+            <template v-for="item in items">
+              <option
+                v-if="item.type === currentType"
+                :value="item.itemName"
+                :key="item._id"
+              >
+                {{ item.itemName }}
+              </option>
+            </template>
           </select>
+        </div>
+      </div>
+    </div>
+    <div class="row container">
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+          <label
+            for="requestedQty"
+            class="form-label mb-0"
+          >Price:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="requestedQty"
+            disabled
+            aria-describedby="emailHelp"
+            v-model="selectedPrice"
+          >
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+          <label
+            class="form-label mb-0"
+          >Available quantity:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="units"
+            disabled
+            v-model="selectedUnits"
+          >
         </div>
       </div>
     </div>
     <div class="container p-3">
       <h4>Pending Request</h4>
-      <table class="table text-center">
-        <thead class="table-dark">
-          <tr>
-            <th scope="col">
-              ID
-            </th>
-            <th scope="col">
-              Name
-            </th>
-            <th scope="col">
-              Date
-            </th>
-            <th scope="col">
-              Requested item
-            </th>
-            <th scope="col">
-              Unit
-            </th>
-            <th scope="col">
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody class="table-secondary">
-          <tr>
-            <th scope="row">
-              1
-            </th>
-            <td>Mark</td>
-            <td>12/02/2021</td>
-            <td>Pen</td>
-            <td>5</td>
-            <td>
-              <button class="btn btn-success">
-                Approve
-              </button>
-              <button class="btn btn-danger ">
-                Danger
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="container p-3">
-      <h4>Approved Request</h4>
-      <table class="table text-center">
-        <thead class="table-dark">
-          <tr>
-            <th scope="col">
-              ID
-            </th>
-            <th scope="col">
-              Name
-            </th>
-            <th scope="col">
-              Date
-            </th>
-            <th scope="col">
-              Requested item
-            </th>
-            <th scope="col">
-              Unit
-            </th>
-            <th scope="col">
-              Status
-            </th>
-          </tr>
-        </thead>
-        <tbody class="table-secondary">
-          <tr>
-            <th scope="row">
-              1
-            </th>
-            <td>Jack</td>
-            <td>2/09/2021</td>
-            <td>Books</td>
-            <td>10</td>
-            <td>Received</td>
-          </tr>
-        </tbody>
-      </table>
+      <b-table
+        striped
+        hover
+        :items="requests"
+        bordered
+        :fields="fields"
+      />
+      <button class="btn btn-success">
+        Approve
+      </button>
+      <button class="btn btn-danger ">
+        Danger
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { callMQLOpen } from '@/utils/mqlCalls.js'
+import MQL from '@/plugins/mql.js'
+
 export default ({
-  name: 'Request'
+  name: 'Request',
+  data () {
+    return {
+      items: [],
+      requests: [],
+      currentType: null,
+      selectedItem: null,
+      selectedPrice: 0,
+      selectedUnits: 0,
+      addUnits: 0,
+      fields: ['empName', 'items', 'remarks', 'requestedQty', 'units', 'specifications']
+    }
+  },
+  mounted () {
+    this.GetAllItems()
+    this.GetAllRequests()
+  },
+  methods: {
+    handleTypeChange (e) {
+      this.currentType = e.target.value
+    },
+    handleItemChange (e) {
+      console.log(e.target.value)
+      this.selectedItem = e.target.value
+    },
+
+    async GetAllItems () {
+      let res = await callMQLOpen('ReadStoresInventory', {})
+      this.items = res
+    },
+    GetAllRequests () {
+      new MQL()
+        .setActivity('o.[ReadStoresRequests]')
+        .enablePageLoader(true)
+        .fetch()
+        .then((rs) => {
+          console.log(rs)
+          let res = rs.getActivity('ReadStoresRequests', true)
+          console.log(res)
+          this.requests = res.result
+          // console.log(formData)
+        })
+    }
+  },
+  computed: {
+    itemTypes: function () {
+      const set = new Set(this.items.map((i) => i.type))
+      return [...set]
+    }
+  },
+  watch: {
+    currentType: function () {
+      const item = this.items.find(
+        (i) => i.type === this.currentType && i.itemName === this.selectedItem
+      )
+      this.selectedPrice = item ? item.price : 0
+      this.selectedUnits = item ? item.avaliableUnits : 0
+    },
+    selectedItem: function () {
+      const item = this.items.find(
+        (i) => i.type === this.currentType && i.itemName === this.selectedItem
+      )
+      this.selectedPrice = item ? item.price : 0
+      this.selectedUnits = item ? item.avaliableUnits : 0
+    }
+  }
 })
+
 </script>
