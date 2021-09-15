@@ -17,6 +17,8 @@ input {
   background-color: #e7e7e7;
   margin-bottom: 1rem;
 }
+button:hover,
+button:focus,
 input:hover,
 input:focus,
 select:hover,
@@ -27,10 +29,14 @@ select:focus {
 .container {
   background-color: #f8f8f8;
   border-radius: 8px;
-  margin-top: 2rem;
 }
 .ack {
   float: right;
+}
+td{
+  border: 0.1px solid rgb(71, 71, 71);
+  padding: 0.5rem;
+
 }
 </style>
 
@@ -40,7 +46,7 @@ select:focus {
       <h1 class="m-2">
         Store <span style="font-weight: 100; color: black">Management</span>
       </h1>
-      <button class="ack btn btn-dark m-3">Acknowledgement</button>
+      <router-link to="/acknowledgement"><button class="ack btn btn-dark m-3">Acknowledgement</button></router-link>
     </div>
     <div class="container">
       <div class="row">
@@ -61,11 +67,19 @@ select:focus {
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
           <div class="mb-2">
             <label for="officeName" class="form-label mb-0">Office Name:</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected />
-              <option value="Pune A">Pune A</option>
-              <option value="Pune B">Pune B</option>
-            </select>
+              <select
+            id="officeLocations"
+            v-model.lazy="officeName"
+            class="custom-select"
+          >
+            <option
+              v-for="officeLocation in locations"
+              :value="officeLocation.location"
+              :key="officeLocation._id"
+            >
+              {{ officeLocation.location }}
+            </option>
+          </select>
           </div>
         </div>
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
@@ -75,7 +89,7 @@ select:focus {
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row text-center">
         <table class="table table-secondary text-center mt-3">
           <thead class="table-dark">
             <tr>
@@ -138,9 +152,9 @@ select:focus {
                 />
               </td>
             </tr>
-            <tr>
-              <button @click="addItem">Add item</button>
-            </tr>
+            <!-- <tr class="table-light"> -->
+              <button class="btn btn-outline-dark btn-sm" @click="addItem">Add item</button>
+            <!-- </tr> -->
           </tbody>
         </table>
       </div>
@@ -168,7 +182,7 @@ select:focus {
 </template>
 
 <script>
-// import MQL from '@/plugins/mql.js'
+import MQL from '@/plugins/mql.js'
 import { callMQLOpen } from "@/utils/mqlCalls.js";
 import ObjectID from "bson-objectid";
 
@@ -177,6 +191,7 @@ export default {
   data() {
     return {
       items: [],
+      locations: [],
       pickedItems: [],
       types: [],
       currentType: null,
@@ -194,6 +209,7 @@ export default {
   },
   mounted() {
     this.GetAllItems();
+    this.GetAllLocations()
   },
   methods: {
     async GetAllItems() {
@@ -212,6 +228,18 @@ export default {
         items: this.items,
         acknowledged: false,
       });
+    },
+    GetAllLocations() {
+        new MQL()
+        .setActivity("o.[ReadOfficeLocations]")
+        .enablePageLoader(false)
+        .fetch()
+        .then((rs) => {
+          let res = rs.getActivity("ReadOfficeLocations", true);
+          console.log("Printing locations");
+          console.log("Location details", res);
+          this.locations = res.result;
+        });
     },
     addItem() {
       console.log(this.currentItem)
