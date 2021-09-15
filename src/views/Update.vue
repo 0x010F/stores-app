@@ -126,8 +126,7 @@ button {
       </div>
     </div>
     <div class="text-center p-4">
-      <h4>Add __ items into Store.</h4>
-      <button class="btn btn-danger" @click="UpdateStores">Update</button>
+      <button class="btn btn-danger" @click="UpdateStores">Add</button>
     </div>
   </div>
 </template>

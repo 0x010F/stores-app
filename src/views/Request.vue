@@ -123,6 +123,7 @@ button{
     <div class="container p-3">
       <h4>Pending Request</h4>
       <b-table
+        dark
         striped
         hover
         :items="requests"
@@ -131,9 +132,6 @@ button{
       />
       <button class="btn btn-success">
         Approve
-      </button>
-      <button class="btn btn-danger ">
-        Danger
       </button>
     </div>
   </div>

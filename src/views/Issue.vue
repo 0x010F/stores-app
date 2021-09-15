@@ -47,7 +47,7 @@ td{
         Store <span style="font-weight:100;color:black">Management</span>
       </h1>
       <h5 class="m-2">
-        Stock Replenishment
+        Stock Issue
       </h5>
     </div>
     <div class="container">
