@@ -40,7 +40,8 @@ button {
 </style>
 
 <template>
-  <div class="main container">
+<div class="main">
+  <div class=" container">
     <div class="p-2">
       <h1 class="m-2">
         Store <span style="font-weight: 100; color: black">Replinishment</span>
@@ -149,6 +150,10 @@ button {
       <button class="btn btn-danger" @click="UpdateStores">Update</button>
     </div>
   </div>
+  <div class="text-center p-4">
+    <button class="btn btn-danger" @click="UpdateStores">Update</button>
+  </div>
+</div>
 </template>
 
 <script>
@@ -193,7 +198,7 @@ export default {
         .setActivity("o.[CreateStoresInventory]")
         .setData("CreateStoresInventory", {
           itemName: this.newItem,
-          _id:  ObjectID().toHexString(),
+          _id: ObjectID().toHexString(),
           avaliableUnits: 0,
           itemName: this.newItem,
           price: 0,

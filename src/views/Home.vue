@@ -17,6 +17,8 @@ input {
   background-color: #e7e7e7;
   margin-bottom: 1rem;
 }
+button:hover,
+button:focus,
 input:hover,
 input:focus,
 select:hover,
@@ -27,10 +29,14 @@ select:focus {
 .container {
   background-color: #f8f8f8;
   border-radius: 8px;
-  margin-top: 2rem;
 }
 .ack {
   float: right;
+}
+td{
+  border: 0.1px solid rgb(71, 71, 71);
+  padding: 0.5rem;
+
 }
 </style>
 
@@ -40,7 +46,7 @@ select:focus {
       <h1 class="m-2">
         Store <span style="font-weight: 100; color: black">Management</span>
       </h1>
-      <button class="ack btn btn-dark m-3">Acknowledgement</button>
+      <router-link to="/acknowledgement"><button class="ack btn btn-dark m-3">Acknowledgement</button></router-link>
     </div>
     <div class="container">
       <div class="row">
@@ -83,7 +89,7 @@ select:focus {
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row text-center">
         <table class="table table-secondary text-center mt-3">
           <thead class="table-dark">
             <tr>
@@ -146,11 +152,12 @@ select:focus {
                 />
               </td>
             </tr>
-            <tr>
-              <button @click="addItem">Add item</button>
-            </tr>
+            <!-- <tr class="table-light"> -->
+            <!-- </tr> -->
           </tbody>
         </table>
+        <button class="btn btn-outline-dark btn-sm mb-4 " @click="addItem" style="width:20%">Add item</button>
+
       </div>
       <div class="row">
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
@@ -210,8 +217,8 @@ export default {
       let res = await callMQLOpen("ReadStoresInventory", {});
       this.items = res;
     },
-    SubmitRequest() {
-      callMQLOpen("CreateStoresRequests", {
+    async SubmitRequest() {
+      await callMQLOpen("CreateStoresRequests", {
         _id: ObjectID().toHexString(),
         empName: this.empName,
         officeName: this.officeName,

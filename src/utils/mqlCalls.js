@@ -5,7 +5,6 @@ export async function callMQLOpen (activityName, data) {
     .setActivity(`o.[${activityName}]`)
     .setData(data)
     .fetch()
-  // return mql
     .then((rs) => {
       let res = rs.getActivity(activityName, true)
       return res.result
