@@ -40,8 +40,8 @@ button {
 </style>
 
 <template>
-<div>
-  <div class="main container">
+<div class="main">
+  <div class=" container">
     <div class="p-2">
       <h1 class="m-2">
         Store <span style="font-weight: 100; color: black">Replinishment</span>
@@ -86,71 +86,71 @@ button {
             </template>
           </select>
         </div>
-         <div class="mb-2">
-            <button
-              class="btn btn-sm btn-outline-dark"
-              type="button"
-              @click="showAddItem = !showAddItem"
-            >
-              Add vendor
-            </button>
-            <div v-if="showAddItem" class="optional">
-              <form @submit.prevent="CreateNewVendor">
-                <input
-                  class="form-control add-form add-form-list"
-                  type="text"
-                  v-model="newVendorName"
-                /><button class="btn btn-sm btn-danger m-1 ml-1" type="submit">
-                  Add vendor
-                </button>
-              </form>
-            </div>
+        <div class="mb-2">
+          <button
+            class="btn btn-sm btn-outline-dark"
+            type="button"
+            @click="showAddItem = !showAddItem"
+          >
+            Add vendor
+          </button>
+          <div v-if="showAddItem" class="optional">
+            <form @submit.prevent="CreateNewVendor">
+              <input
+                class="form-control add-form add-form-list"
+                type="text"
+                v-model="newVendorName"
+              /><button class="btn btn-sm btn-danger m-1 ml-1" type="submit">
+                Add vendor
+              </button>
+            </form>
           </div>
         </div>
       </div>
     </div>
-    <div class="row container">
-      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-        <div class="mb-2">
-          <label for="requestedQty" class="form-label mb-0">Price:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="requestedQty"
-            aria-describedby="emailHelp"
-            v-model="selectedPrice"
-          />
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-        <div class="mb-2">
-          <label for="units" class="form-label mb-0">Available quantity:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="units"
-            aria-describedby="emailHelp"
-            disabled
-            v-model="selectedUnits"
-          />
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-        <div class="mb-2">
-          <label for="units-add" class="form-label mb-0">Quantity to add:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="units-add"
-            v-model="addUnits"
-          />
-        </div>
+  </div>
+  <div class="row container p-2">
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+      <div class="mb-2">
+        <label for="requestedQty" class="form-label mb-0">Price:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="requestedQty"
+          aria-describedby="emailHelp"
+          v-model="selectedPrice"
+        />
       </div>
     </div>
-    <div class="text-center p-4">
-      <button class="btn btn-danger" @click="UpdateStores">Update</button>
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+      <div class="mb-2">
+        <label for="units" class="form-label mb-0">Available quantity:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="units"
+          aria-describedby="emailHelp"
+          disabled
+          v-model="selectedUnits"
+        />
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+      <div class="mb-2">
+        <label for="units-add" class="form-label mb-0">Quantity to add:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="units-add"
+          v-model="addUnits"
+        />
+      </div>
     </div>
   </div>
+  <div class="text-center p-4">
+    <button class="btn btn-danger" @click="UpdateStores">Update</button>
+  </div>
+</div>
 </template>
 
 <script>
@@ -169,7 +169,7 @@ export default {
       selectedUnits: 0,
       addUnits: 0,
       showAddItem: false,
-      newItem: ''
+      newItem: "",
     };
   },
   mounted() {
@@ -195,7 +195,7 @@ export default {
         .setActivity("o.[CreateStoresInventory]")
         .setData("CreateStoresInventory", {
           itemName: this.newItem,
-          _id:  ObjectID().toHexString(),
+          _id: ObjectID().toHexString(),
           avaliableUnits: 0,
           itemName: this.newItem,
           price: 0,
