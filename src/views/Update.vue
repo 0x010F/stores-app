@@ -49,16 +49,21 @@ button {
     <div class="row container">
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
-          <label for="exampleInputEmail1" class="form-label mb-0"
-            >Select Type:</label
-          >
+          <label
+            for="exampleInputEmail1"
+            class="form-label mb-0"
+          >Select Type:</label>
           <select
             class="form-select"
             id="itemType"
             aria-label="Default select example"
             v-model="currentType"
           >
-            <option v-for="type in itemTypes" :key="type" :value="type">
+            <option
+              v-for="type in itemTypes"
+              :key="type"
+              :value="type"
+            >
               {{ type }}
             </option>
           </select>
@@ -66,9 +71,10 @@ button {
       </div>
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
-          <label for="exampleInputEmail1" class="form-label mb-0"
-            >Select item:</label
-          >
+          <label
+            for="exampleInputEmail1"
+            class="form-label mb-0"
+          >Select item:</label>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -85,24 +91,50 @@ button {
             </template>
           </select>
         </div>
+         <div class="mb-2">
+            <button
+              class="btn btn-sm btn-outline-dark"
+              type="button"
+              @click="showAddItem = !showAddItem"
+            >
+              Add vendor
+            </button>
+            <div v-if="showAddItem" class="optional">
+              <form @submit.prevent="CreateNewVendor">
+                <input
+                  class="form-control add-form add-form-list"
+                  type="text"
+                  v-model="newVendorName"
+                /><button class="btn btn-sm btn-danger m-1 ml-1" type="submit">
+                  Add
+                </button>
+              </form>
+            </div>
+          </div>
       </div>
     </div>
     <div class="row container">
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
-          <label for="requestedQty" class="form-label mb-0">Price:</label>
+          <label
+            for="requestedQty"
+            class="form-label mb-0"
+          >Price:</label>
           <input
             type="text"
             class="form-control"
             id="requestedQty"
             aria-describedby="emailHelp"
             v-model="selectedPrice"
-          />
+          >
         </div>
       </div>
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
-          <label for="units" class="form-label mb-0">Available units:</label>
+          <label
+            for="units"
+            class="form-label mb-0"
+          >Available units:</label>
           <input
             type="text"
             class="form-control"
@@ -110,65 +142,74 @@ button {
             aria-describedby="emailHelp"
             disabled
             v-model="selectedUnits"
-          />
+          >
         </div>
       </div>
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <div class="mb-2">
-          <label for="units-add" class="form-label mb-0">Units to add:</label>
+          <label
+            for="units-add"
+            class="form-label mb-0"
+          >Units to add:</label>
           <input
             type="text"
             class="form-control"
             id="units-add"
             v-model="addUnits"
-          />
+          >
         </div>
       </div>
     </div>
     <div class="text-center p-4">
       <h4>Add __ items into Store.</h4>
-      <button class="btn btn-danger" @click="UpdateStores">Update</button>
+      <button
+        class="btn btn-danger"
+        @click="UpdateStores"
+      >
+        Update
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { callMQLOpen } from "@/utils/mqlCalls.js";
-import MQL from "@/plugins/mql.js";
+import { callMQLOpen } from '@/utils/mqlCalls.js'
+import MQL from '@/plugins/mql.js'
 export default {
-  name: "Request",
-  data() {
+  name: 'Request',
+  data () {
     return {
       items: [],
       currentType: null,
       selectedItem: null,
       selectedPrice: 0,
       selectedUnits: 0,
-      addUnits: 0
-    };
+      addUnits: 0,
+      showAddItem: false
+    }
   },
-  mounted() {
-    this.GetAllItems();
+  mounted () {
+    this.GetAllItems()
   },
   methods: {
-    handleTypeChange(e) {
-      this.currentType = e.target.value;
+    handleTypeChange (e) {
+      this.currentType = e.target.value
     },
 
-    handleItemChange(e) {
-      console.log(e.target.value);
-      this.selectedItem = e.target.value;
+    handleItemChange (e) {
+      console.log(e.target.value)
+      this.selectedItem = e.target.value
     },
 
-    async GetAllItems() {
-      let res = await callMQLOpen("ReadStoresInventory", {});
-      this.items = res;
-      console.log(this.items);
+    async GetAllItems () {
+      let res = await callMQLOpen('ReadStoresInventory', {})
+      this.items = res
+      console.log(this.items)
     },
-    async UpdateStores() {
+    async UpdateStores () {
       const item = this.items.find(
         (i) => i.type === this.currentType && i.itemName === this.selectedItem
-      );
+      )
       // const response = await callMQLOpen("UpdateStoresInventory", {
       //   id: item._id,
       //   avaliableUnits: this.selectedUnits,
@@ -177,47 +218,53 @@ export default {
       //   type: this.currentType,
       // });
       // console.log(response)
-      console.log(this.selectedUnits, this.selectedItem, this.selectedPrice, this.currentType)
+      console.log(
+        this.selectedUnits,
+        this.selectedItem,
+        this.selectedPrice,
+        this.currentType
+      )
       new MQL()
-        .setActivity("o.[UpdateStoresInventory]")
+        .setActivity('o.[UpdateStoresInventory]')
         .setData({
-          "id": item._id,
-          "avaliableUnits": parseInt(this.selectedUnits, 10) + parseInt(this.addUnits, 10),
-          "itemName": this.selectedItem,
-          "price": parseInt(this.selectedPrice, 10),
-          "type": this.currentType,
+          id: item._id,
+          avaliableUnits:
+            parseInt(this.selectedUnits, 10) + parseInt(this.addUnits, 10),
+          itemName: this.selectedItem,
+          price: parseInt(this.selectedPrice, 10),
+          type: this.currentType
         })
         .enablePageLoader(true)
         .showConfirmDialog(true)
-        .fetch("a11")
+        .fetch('a11')
         .then((res) => {
-          console.log(res);
+          console.log(res)
           // let r = res.getRaw(true)
-          console.log(res.isValid());
-        });
-    },
+          console.log(res.isValid())
+        })
+    }
   },
   computed: {
     itemTypes: function () {
-      const set = new Set(this.items.map((i) => i.type));
-      return [...set];
-    },
+      const set = new Set(this.items.map((i) => i.type))
+      return [...set]
+    }
   },
   watch: {
     currentType: function () {
       const item = this.items.find(
         (i) => i.type === this.currentType && i.itemName === this.selectedItem
-      );
-      this.selectedPrice = item ? item.price : 0;
-      this.selectedUnits = item ? item.avaliableUnits : 0;
+      )
+      this.selectedPrice = item ? item.price : 0
+      this.selectedUnits = item ? item.avaliableUnits : 0
     },
     selectedItem: function () {
       const item = this.items.find(
         (i) => i.type === this.currentType && i.itemName === this.selectedItem
-      );
-      this.selectedPrice = item ? item.price : 0;
-      this.selectedUnits = item ? item.avaliableUnits : 0;
-    },
-  },
-};
+      )
+      this.selectedPrice = item ? item.price : 0
+      this.selectedUnits = item ? item.avaliableUnits : 0
+    }
+  }
+}
 </script>

@@ -93,11 +93,11 @@ export default {
         // In case params not provided it will go with empty object
         .setData(this.params || {})
         .fetch()
-        .then(rs => {
+        .then((rs) => {
           let res = rs.getActivity(this.activity, false)
           if (rs.isValid(this.activity)) {
             // Check if the request is of query type
-            if ((this.activity).startsWith('query_')) {
+            if (this.activity.startsWith('query_')) {
               // Request is of query type
               this.itemList = res
             } else {
