@@ -67,11 +67,19 @@ td{
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
           <div class="mb-2">
             <label for="officeName" class="form-label mb-0">Office Name:</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected />
-              <option value="Pune A">Pune A</option>
-              <option value="Pune B">Pune B</option>
-            </select>
+              <select
+            id="officeLocations"
+            v-model.lazy="officeName"
+            class="custom-select"
+          >
+            <option
+              v-for="officeLocation in locations"
+              :value="officeLocation.location"
+              :key="officeLocation._id"
+            >
+              {{ officeLocation.location }}
+            </option>
+          </select>
           </div>
         </div>
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
@@ -174,7 +182,7 @@ td{
 </template>
 
 <script>
-// import MQL from '@/plugins/mql.js'
+import MQL from '@/plugins/mql.js'
 import { callMQLOpen } from "@/utils/mqlCalls.js";
 import ObjectID from "bson-objectid";
 
@@ -183,6 +191,7 @@ export default {
   data() {
     return {
       items: [],
+      locations: [],
       pickedItems: [],
       types: [],
       currentType: null,
@@ -200,6 +209,7 @@ export default {
   },
   mounted() {
     this.GetAllItems();
+    this.GetAllLocations()
   },
   methods: {
     async GetAllItems() {
@@ -218,6 +228,18 @@ export default {
         items: this.items,
         acknowledged: false,
       });
+    },
+    GetAllLocations() {
+        new MQL()
+        .setActivity("o.[ReadOfficeLocations]")
+        .enablePageLoader(false)
+        .fetch()
+        .then((rs) => {
+          let res = rs.getActivity("ReadOfficeLocations", true);
+          console.log("Printing locations");
+          console.log("Location details", res);
+          this.locations = res.result;
+        });
     },
     addItem() {
       console.log(this.currentItem)
