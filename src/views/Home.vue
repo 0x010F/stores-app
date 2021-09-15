@@ -153,10 +153,11 @@ td{
               </td>
             </tr>
             <!-- <tr class="table-light"> -->
-              <button class="btn btn-outline-dark btn-sm" @click="addItem">Add item</button>
             <!-- </tr> -->
           </tbody>
         </table>
+        <button class="btn btn-outline-dark btn-sm mb-4 " @click="addItem" style="width:20%">Add item</button>
+
       </div>
       <div class="row">
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">

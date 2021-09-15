@@ -106,7 +106,7 @@ button {
                   type="text"
                   v-model="newVendorName"
                 /><button class="btn btn-sm btn-danger m-1 ml-1" type="submit">
-                  Add
+                  Add vendor
                 </button>
               </form>
             </div>
