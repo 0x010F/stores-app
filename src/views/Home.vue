@@ -217,8 +217,8 @@ export default {
       let res = await callMQLOpen("ReadStoresInventory", {});
       this.items = res;
     },
-    SubmitRequest() {
-      callMQLOpen("CreateStoresRequests", {
+    async SubmitRequest() {
+      await callMQLOpen("CreateStoresRequests", {
         _id: ObjectID().toHexString(),
         empName: this.empName,
         officeName: this.officeName,
